@@ -1,23 +1,26 @@
 var Today = new Date();
 var Year = new Date().getFullYear();
-var Week = new Array('[일]', '[월]', '[화]', '[수]', '[목]', '[금]', '[토]');
 
-var WorkerBirth = Array
+var BirthDate = Array
     (
-        '1/18',      // Soulworker
-        '9/10',      // Haru
-        '5/29',      // Erwin
-        '2/27',      // Lily
-        '6/25',      // Stella
-        '7/28',      // Jin
-        '11/4',      // Iris           
-        '3/2',       // Chii
-        '10/10'      // Ephnel      
-    );
+        new Date (Year, 0, 18) ,
+        new Date (Year, 8, 10) ,
+        new Date (Year, 4, 29) ,
+        new Date (Year, 1, 27) ,
+        new Date (Year, 5, 25) ,
+        new Date (Year, 6, 28) ,
+        new Date (Year, 10, 4) ,
+        new Date (Year, 2, 2) ,
+        new Date (Year, 9, 10)
+    )
 
-for (i = 0; i < WorkerBirth.length; i++) {
-    WorkerBirth[i] = WorkerBirth[i] + "/" + Year ;
-    CountDownTimer(WorkerBirth[i], "Birth" + i) ;
+for (i = 0; i < BirthDate.length; i++) {
+    if (Today > BirthDate[i])
+    {
+        BirthDate[i] = new Date (Year+1, BirthDate[i].getMonth(), BirthDate[i].getDate()) ;
+    }
+
+    CountDownTimer(BirthDate[i], "Birth" + i);
 }
 
 function CountDownTimer(dt, id) {
@@ -31,27 +34,23 @@ function CountDownTimer(dt, id) {
 
     var timer;
 
-
     function showRemaining() {
+        var Now = new Date();
 
-        var now = new Date();
-
-        var distance = end - now;
-
-        if (distance < 0) {
-
+        if (Now.getMonth() == end.getMonth() && Now.getDate() == end.getDate()) {
             clearInterval(timer);
 
-            document.getElementById(id).innerHTML = '카운트다운이 끝났습니다. 곧 오픈합니다!';
+            document.getElementById(id).innerHTML = '오늘';
 
             return;
         }
+
+        var distance = end - Now;
 
         var days = Math.floor(distance / _day);
         var hours = Math.floor((distance % _day) / _hour);
         var minutes = Math.floor((distance % _hour) / _minute);
         var seconds = Math.floor((distance % _minute) / _second)
-
 
         document.getElementById(id).innerHTML = '<center>' + days + '일 ' + hours + '시간 ' + minutes + '분 ' + seconds + '초 </center>';
     }

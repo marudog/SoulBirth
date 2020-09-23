@@ -40,7 +40,7 @@ function CountDownTimer(dt, id) {
         if (Now.getMonth() == end.getMonth() && Now.getDate() == end.getDate()) {
             clearInterval(timer);
 
-            document.getElementById(id).innerHTML = '오늘';
+            document.getElementById(id).innerHTML = '<cener> 오늘 </center>';
 
             return;
         }
